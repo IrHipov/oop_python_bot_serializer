@@ -21,20 +21,6 @@ class DObject:
 										self.content['ArticlesCount'],
 										self.author)
 
-	def as_dobject_content(dct):
-		publish_date = ""
-		content_len = 0
-		articles_count = 0
-
-		if 'PublishDate' in dct:
-			publish_date = dct['PublishDate']
-		if 'ContentLen' in dct:
-			publish_date = dct['ContentLen']
-		if 'ArticlesCount' in dct:
-			publish_date = dct['ArticlesCount']
-
-		return {
-				'PublishDate': publish_date, 
-				'ContentLen': content_len, 
-				'ArticlesCount': articles_count
-				}
+	
+	def send_file(self, message):
+		pass

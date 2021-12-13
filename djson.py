@@ -1,15 +1,19 @@
 from document_object import *
 import json
 
+
 class DJson(DObject):
-	json_content = ""
+	def __init__(self, content, author):
+		DObject.__init__(self, "JSON", content, author)
 
-	def __init__(self, strContent, author):
-		DObject.__init__(self, "JSON", self.from_string(strContent), author)
-		json_content = strContent
+	def send_file(self):
+		with open('file.json', 'w') as doc:
+			doc.write(json.dumps(self.content, indent = 4))
+		return open('file.json', 'rb')
 
-
-	def from_string(self, strContent):
-		return json.loads(strContent, object_hook=DObject.as_dobject_content)
-
-	
+	def file_to_object(file):
+		with open('file.json', 'wb') as doc:
+			doc.write(file)
+		with open('file.json', 'r') as doc:
+			return json.load(doc)
+		return {}
