@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import telebot
 import config
 import requests
@@ -22,6 +23,9 @@ COMMANDS = [
 @bot.message_handler(commands=['start'])
 def welcome(message):
 	global markup
+
+	print("Starting...")
+
 	markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
 	markup.add(types.KeyboardButton(COMMANDS[0]),
@@ -36,6 +40,9 @@ def welcome(message):
 
 @bot.message_handler(func=lambda m: m.text == COMMANDS[0])
 def json_file_to_obj(message):
+
+	print("Json file to object function doing...")
+
 	send = bot.send_message(message.chat.id, "OK. Send me JSON file",
 							reply_markup=types.ReplyKeyboardRemove())
 	bot.register_next_step_handler(send, get_json_file)
@@ -43,6 +50,9 @@ def json_file_to_obj(message):
 
 @bot.message_handler(func=lambda m: m.text == COMMANDS[1])
 def json_obj_to_file(message):
+
+	print("Json object to file function doing...")
+
 	send = bot.send_message(message.chat.id, 
 							'Enter: \n\
 							\tPublish Date\n\
@@ -54,6 +64,9 @@ def json_obj_to_file(message):
 
 @bot.message_handler(func=lambda m: m.text == COMMANDS[2])
 def csv_file_to_obj(message):
+
+	print("Csv file to object function doing...")
+
 	send = bot.send_message(message.chat.id, "OK. Send me CSV file",
 							reply_markup=types.ReplyKeyboardRemove())
 	bot.register_next_step_handler(send, get_csv_file)
@@ -61,6 +74,9 @@ def csv_file_to_obj(message):
 
 @bot.message_handler(func=lambda m: m.text == COMMANDS[3])
 def csv_obj_to_file(message):
+
+	print("Csv object to file function doing...")
+
 	send = bot.send_message(message.chat.id, 
 							'Enter: \n\
 							\tPublish Date\n\
@@ -73,6 +89,9 @@ def csv_obj_to_file(message):
 
 
 def gen_json_object(message):
+
+	print("gen_json_object function doing...")
+
 	split_array = message.text.split('\n')
 	obj = {
 		'PublishDate': split_array[0],
@@ -84,6 +103,9 @@ def gen_json_object(message):
 
 
 def gen_csv_object(message):
+
+	print("gen_csv_object function doing...")
+
 	split_array = message.text.split('\n')
 	obj = {
 		'PublishDate': split_array[0],
@@ -96,7 +118,9 @@ def gen_csv_object(message):
 
 def gen_file(message, obj):
 	global markup
-	
+
+	print("gen_file function doing...")
+
 	if isinstance(obj, DJson):
 		bot.send_message(message.chat.id, "JSON object serlialized to file.json:")
 	elif isinstance(obj, DCsv):
@@ -109,6 +133,8 @@ def gen_file(message, obj):
 def get_json_file(message):
 	global markup
 
+	print("get_json_file function doing...")
+
 	file_info = bot.get_file(message.document.file_id)
 	downloaded_file = bot.download_file(file_info.file_path)
 
@@ -120,6 +146,8 @@ def get_json_file(message):
 
 def get_csv_file(message):
 	global markup
+
+	print("get_csv_file function doing...")
 
 	file_info = bot.get_file(message.document.file_id)
 	downloaded_file = bot.download_file(file_info.file_path)

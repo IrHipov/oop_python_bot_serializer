@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 class DObject:
 	# dtype (string) - document type
 	# content (turple) - document content 
